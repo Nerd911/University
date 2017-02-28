@@ -11,5 +11,5 @@ struct A us[];
 struct A *vs;
 vs->d = us[1].a + us[j].c;
 
-store_I8((void*)vs + 4, )
-(void*)vs
+
+store_I8((void*)vs + 10, load_I8((void*)us + 12) + load_I8((void*)us + j*12 + 8));
