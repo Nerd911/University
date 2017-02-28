@@ -9,10 +9,9 @@ struct A {
 
 struct B {
 uint16_t a; /*2 bytes*/
-/*6 bytes padding*/
+/*2 bytes padding*/
 double b; /*8 bytes*/
 void *c; /*4 bytes*/
-/*4 bytes padding*/
 };
 
 struct A1 {
