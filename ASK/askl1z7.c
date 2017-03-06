@@ -14,10 +14,12 @@ void insertion_sort(int arr[], int length) {
 void insertion_sort(int arr[], int length) {
   int j, temp;
   int i = 0;
+
   bool b;
   beginloop1:
   b = !(i < length);
   if b goto endloop1;
+
     j = i;
     beginloop2:
     b = !(j > 0 && arr[j] < arr[j-1]);
