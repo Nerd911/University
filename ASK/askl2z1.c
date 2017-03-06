@@ -28,9 +28,11 @@ int main(){
 
   x = 0x80000001;
   y = 0x80000001;
+  //to zawsze ok
   res = x + y == (uint32_t)y + (uint32_t)x;
   printf("%d\n", res);
 
+  //to zawsze ok
   res = x * ~y + (uint32_t)y * (uint32_t)x == -x;
   printf("%d\n", res);
 
