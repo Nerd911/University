@@ -23,7 +23,9 @@ int main(){
   int j = 5;
 
   printf("%s\n", byte_to_binary(x));
-  x = (((x >> (31 - i)) & 1) << (31 - j)) ^ x;
+  int y = (x >> i) & 1;
+  x = (~(1<<j) & x);
+  x = ((y<<j)|x);
   printf("%s\n", byte_to_binary(x));
   return 0;
 }
