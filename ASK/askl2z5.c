@@ -1,8 +1,6 @@
 #include "stdint.h"
 #include "stdio.h"
 /* Oblicz x * 3 / 4 zaokrąglając w dół. */
-
-//do poprawy
 int32_t threefourths(int32_t x){
   return (x>>1)+((x+1)>>2);
 }
