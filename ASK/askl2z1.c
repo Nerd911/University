@@ -10,7 +10,7 @@ int main(){
   printf("%d\n", res);
 
   x = 0x0000000F;
-  //ok?
+  //ok
   res = (x & 7) != 7 || (x << 29 < 0);
   printf("%d\n", res);
 
