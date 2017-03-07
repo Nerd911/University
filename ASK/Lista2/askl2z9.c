@@ -1,12 +1,14 @@
 #include "stdio.h"
 #include "string.h"
-int even(int x){
+#include "stdint.h"
+
+int32_t odd_ones(uint32_t x){
   x ^= x >> 16;
   x ^= x >> 8;
   x ^= x >> 4;
   x ^= x >> 2;
   x ^= x >> 1;
-  return (~x) & 1;
+  return (x) & 1;
 }
 
 const char *byte_to_binary(int x)
@@ -24,8 +26,8 @@ const char *byte_to_binary(int x)
 }
 
 int main(){
-  int x = 14;
+  int x = 5;
   printf("%s\n", byte_to_binary(x));
-  printf("%d\n", even(x));
+  printf("%d\n", odd_ones(x));
   return 0;
 }
