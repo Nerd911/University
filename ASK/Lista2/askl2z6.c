@@ -13,8 +13,8 @@ int32_t compu(uint32_t x, uint32_t y){
 int main(){
   int32_t a, b;
   uint32_t ua, ub;
-  a = -1000;
-  b = 4234;
+  a = 5;
+  b = 5;
   ua = 45;
   ub = 4;
 
