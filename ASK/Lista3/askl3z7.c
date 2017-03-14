@@ -43,7 +43,7 @@ int32_t log2(int32_t x){
 }
 int main(){
   float x, y;
-  x = 10.0;
+  x = -2.0;
   y = 10.0;
 
   int32_t ix, iy;
@@ -53,6 +53,6 @@ int main(){
   printf("%f\n", bitsfloat(flipSign(ix)));
   printf("%d\n", eq(ix, iy));
   printf("%d\n", compf(ix, iy));
-  printf("%d\n", log2(ix));
+  printf("%f\n", log2(ix));
 
 }
