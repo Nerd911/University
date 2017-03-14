@@ -38,9 +38,12 @@ int32_t compf(int32_t x, int32_t y){
   return eq(x, y) | ~(x>>31)&comp(x,y) | (x>>31)&compu(y,x);
 }
 
+int32_t log2(int32_t x){
+  return (((x & 0x7F800000) >> 23) - 127);
+}
 int main(){
   float x, y;
-  x = 0.0;
+  x = 10.0;
   y = 10.0;
 
   int32_t ix, iy;
@@ -50,6 +53,6 @@ int main(){
   printf("%f\n", bitsfloat(flipSign(ix)));
   printf("%d\n", eq(ix, iy));
   printf("%d\n", compf(ix, iy));
-  printf("%f\n", bitsfloat(flipSign(ix)));
+  printf("%d\n", log2(ix));
 
 }
