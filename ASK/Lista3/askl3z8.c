@@ -2,9 +2,6 @@
 #include "stdint.h"
 #include "string.h"
 
-//2^23
-#define FRAC 0x4B000000
-
 const char *byte_to_binary(int x)
 {
     static char b[33];
@@ -24,19 +21,28 @@ int32_t floatbits(float f){
   memcpy(&result, &f, sizeof(result));
   return result;
 }
+/*
 int32_t float2int(int32_t f){
-  //0111 1111 1000 0000
-  //C stroi fochy
+  //to dziala
   int s = 0x00000001 | (f>>31);
   int e = (((f & 0x7F800000) >> 23) - 127);
-  int m = ((f&0x007FFFFF) << (e-1));
-
-  printf("%d\n", m);
-   return s*((1 << e)+m);
+  int m = ((f & 0x007FFFFF) >>(23-e));
+  return s*((1 << e)+m);
 
 }
+*/
+
+int32_t float2int(int32_t f){
+  //to o dziwo też
+  int s = (f>>31);
+  int e = (((f & 0x7F800000) >> 23) - 127);
+  int m = ((f & 0x007FFFFF) >>(23-e));
+  int res = (1 << e)+m;
+  return (s^res) - s;
+}
+
 int main(){
-  float f = 3;
+  float f = -23.5;
 
   int32_t i = float2int(floatbits(f));
   printf("%s\n", byte_to_binary(floatbits(f)));
