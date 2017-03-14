@@ -43,8 +43,8 @@ int32_t log2(int32_t x){
 }
 int main(){
   float x, y;
-  x = -2.0;
-  y = 10.0;
+  x = 2.0;
+  y = -10.0;
 
   int32_t ix, iy;
   ix = floatbits(x);
