@@ -22,8 +22,10 @@ int32_t power(int32_t f, int32_t i){
     return f;
   if((f & 0xFF800000) == 0xFF800000)//NaN
     return f;
+  if(f == 0x00000000 || f == 0x80000000)
+    return f;
   int temp_e = ((f & 0x7F800000) >> 23) + i;
-  return (f & ~0x7F800000) | ((temp_e & 0x7F800000) << 23);
+  return (f & ~0x7F800000) | ((temp_e << 23) & 0x7F800000);
 }
 int main(){
 
