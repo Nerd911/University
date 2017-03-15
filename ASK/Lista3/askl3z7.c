@@ -5,8 +5,8 @@
 
 //Porównywanie ze i bez znaku, patrz, lista 2 zad 6
 int32_t comp(int32_t x, int32_t y){
-  //return ((x-y)^((x^y)&((x-y)^x)))>>31 & 0x00000001;
-  return ((x&(~y))|(~(x^y) & (x-y)))>>31 & 0x00000001; //oba poprawne
+  return ((x-y)^((x^y)&((x-y)^x)))>>31 & 0x00000001;
+  //return ((x&(~y))|(~(x^y) & (x-y)))>>31 & 0x00000001; //oba poprawne
 }
 
 int32_t compu(uint32_t x, uint32_t y){
@@ -35,7 +35,8 @@ int32_t eq(int32_t x, int32_t y){
 }
 
 int32_t compf(int32_t x, int32_t y){
-  return eq(x, y) | ~(x>>31)&comp(x,y) | (x>>31)&compu(y,x);
+  //return eq(x, y) | ~(x>>31)&comp(x,y) | (x>>31)&compu(y,x); //rzutowanie na unsigned - illegal
+  return (((x >> 31) & 1) == 1 & ((y >> 31) & 1) != 1) | eq(x, y) | ~(x>>31)&~(y>>31)&comp(x,y) | (y>>31)&(x>>31)&comp(y,x);
 }
 
 int32_t log2(int32_t x){
@@ -43,8 +44,8 @@ int32_t log2(int32_t x){
 }
 int main(){
   float x, y;
-  x = 2.0;
-  y = -10.0;
+  x = -6.0;
+  y = -5.0;
 
   int32_t ix, iy;
   ix = floatbits(x);
