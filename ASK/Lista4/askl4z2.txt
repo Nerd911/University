@@ -1,6 +1,7 @@
-1. mov %eax, (%rsp)
-2. mov (%rax), %dx
-3. mov $0xFF, %bl
-4. mov (%rsp,%rdx,4),%dl
-5. mov (%rdx), %rax
-6. mov %dx, (%rax)
+//Jeszcze do poprawki
+1. movl %eax, (%rsp)
+2. movw (%rax), %dx
+3. movb $0xFF, %bl
+4. movb (%rsp,%rdx,4),%dl
+5. movq (%rdx), %rax
+6. movw %dx, (%rax)
