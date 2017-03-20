@@ -1,0 +1,6 @@
+1. mov %eax, (%rsp)
+2. mov (%rax), %dx
+3. mov $0xFF, %bl
+4. mov (%rsp,%rdx,4),%dl
+5. mov (%rdx), %rax
+6. mov %dx, (%rax)
