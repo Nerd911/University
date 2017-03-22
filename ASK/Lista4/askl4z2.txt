@@ -1,5 +1,5 @@
-//Jeszcze do poprawki
-1. movl %eax, (%rsp)
+//powinno być  ok
+1. movq %eax, (%rsp)
 2. movw (%rax), %dx
 3. movb $0xFF, %bl
 4. movb (%rsp,%rdx,4),%dl
