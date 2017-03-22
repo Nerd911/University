@@ -8,6 +8,8 @@ add128:
   addq %rdx, %rax
   addq %rcx, %rbx
   # trzeba jeszcze dorobic reszte, odejmujemy od dolnych bitów z sumy dolne bity z jednej z liczbm, shuftujemy w prawo logicznie o 63, dodajemy do gornych bitow sumy, cieszymy sie,
-  # dorobie jutro po AISD, bo teraz mi się nie chce
   movq %rbx, %rdx
+  subq %rsi, %rbx
+  shrq $63, %rbx
+  addq %rbx, %rax
   ret
