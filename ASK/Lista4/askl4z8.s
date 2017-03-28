@@ -2,7 +2,7 @@
 .globl mul128
 .type mul128, @function
 
-mul128: # to poprostu zdesasemblowane mnozenie 128 bitowcow z biblioteki standardowej
+mul128:
   imulq     %rdx, %rsi
   movq     %rdi, %rax
   imulq     %rdi, %rcx
