@@ -1,18 +1,15 @@
-long puzzLe2(char *s, char *d){
-  char* a = s;
-  do{
-    char* temp1 = a + 1;
-    char temp2 = *(temp1 - 1);
-    char temp3;
-    char* b = d;
+long puzzle2(char* s, char* d){ char cl;
+    for (char* res = s; 1; res++) {
+L3:     // char* r8 = res + 1;
+        // char r9 = *res;  // *(r8 - 1);
+        char* i = d;
+L2:     do {
+            i++;
+            cl = *(i - 1);
 
-    do{
-      ++b;
-      temp3 = *(b - 1);
-
-      if(temp3 == 0)
-        return (long)(a - d);
-    }while(temp3 != temp2);
-    a = temp1;
-  }while(true);
+            if (cl == 0)
+L7:             return res - s;
+        } while (*res != cl);  // if (r9 != cl) goto L2;
+        // res++;  //res = r8;
+    } // goto L3;
 }
