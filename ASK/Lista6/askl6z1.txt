@@ -1,0 +1,87 @@
+nazwa | typ    | nazwa sekcji | rozmiar
+buf   | extern | *UND*        | 0x0
+bufp0 | global | .data        | 0x08
+bufp1 | local  | .bss         | 0x08
+incr  | local  | .text        | 0x16
+count | local  | .bss         | 0x04
+swap  | global | .text        | 0x4a
+
+
+swap.o:     file format elf64-x86-64
+swap.o
+architecture: i386:x86-64, flags 0x00000011:
+HAS_RELOC, HAS_SYMS
+start address 0x0000000000000000
+
+Sections:
+Idx Name          Size      VMA               LMA               File off  Algn
+  0 .text         00000060  0000000000000000  0000000000000000  00000040  2**0
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+  1 .data         00000008  0000000000000000  0000000000000000  000000a0  2**3
+                  CONTENTS, ALLOC, LOAD, RELOC, DATA
+  2 .bss          0000000c  0000000000000000  0000000000000000  000000a8  2**3
+                  ALLOC
+  3 .comment      0000001b  0000000000000000  0000000000000000  000000a8  2**0
+                  CONTENTS, READONLY
+  4 .note.GNU-stack 00000000  0000000000000000  0000000000000000  000000c3  2**0
+                  CONTENTS, READONLY
+  5 .eh_frame     00000058  0000000000000000  0000000000000000  000000c8  2**3
+                  CONTENTS, ALLOC, LOAD, RELOC, READONLY, DATA
+SYMBOL TABLE:
+0000000000000000 l    df *ABS*  0000000000000000 swap.c
+0000000000000000 l    d  .text  0000000000000000 .text
+0000000000000000 l    d  .data  0000000000000000 .data
+0000000000000000 l    d  .bss   0000000000000000 .bss
+0000000000000000 l     O .bss   0000000000000008 bufp1
+0000000000000000 l     F .text  0000000000000016 incr
+0000000000000008 l     O .bss   0000000000000004 count.1760
+0000000000000000 l    d  .note.GNU-stack        0000000000000000 .note.GNU-stack
+0000000000000000 l    d  .eh_frame      0000000000000000 .eh_frame
+0000000000000000 l    d  .comment       0000000000000000 .comment
+0000000000000000 g     O .data  0000000000000008 bufp0
+0000000000000000         *UND*  0000000000000000 buf
+0000000000000016 g     F .text  000000000000004a swap
+
+
+
+Disassembly of section .text:
+
+0000000000000000 <incr>:
+   0:   55                      push   %rbp
+   1:   48 89 e5                mov    %rsp,%rbp
+   4:   8b 05 00 00 00 00       mov    0x0(%rip),%eax        # a <incr+0xa>
+                        6: R_X86_64_PC32        .bss+0x4
+   a:   83 c0 01                add    $0x1,%eax
+   d:   89 05 00 00 00 00       mov    %eax,0x0(%rip)        # 13 <incr+0x13>
+                        f: R_X86_64_PC32        .bss+0x4
+  13:   90                      nop
+  14:   5d                      pop    %rbp
+  15:   c3                      retq
+
+0000000000000016 <swap>:
+  16:   55                      push   %rbp
+  17:   48 89 e5                mov    %rsp,%rbp
+  1a:   48 83 ec 10             sub    $0x10,%rsp
+  1e:   b8 00 00 00 00          mov    $0x0,%eax
+  23:   e8 d8 ff ff ff          callq  0 <incr>
+  28:   48 c7 05 00 00 00 00    movq   $0x0,0x0(%rip)        # 33 <swap+0x1d>
+  2f:   00 00 00 00
+                        2b: R_X86_64_PC32       .bss-0x8
+                        2f: R_X86_64_32S        buf+0x4
+  33:   48 8b 05 00 00 00 00    mov    0x0(%rip),%rax        # 3a <swap+0x24>
+                        36: R_X86_64_PC32       bufp0-0x4
+  3a:   8b 00                   mov    (%rax),%eax
+  3c:   89 45 fc                mov    %eax,-0x4(%rbp)
+  3f:   48 8b 05 00 00 00 00    mov    0x0(%rip),%rax        # 46 <swap+0x30>
+                        42: R_X86_64_PC32       bufp0-0x4
+  46:   48 8b 15 00 00 00 00    mov    0x0(%rip),%rdx        # 4d <swap+0x37>
+                        49: R_X86_64_PC32       .bss-0x4
+  4d:   8b 12                   mov    (%rdx),%edx
+  4f:   89 10                   mov    %edx,(%rax)
+  51:   48 8b 05 00 00 00 00    mov    0x0(%rip),%rax        # 58 <swap+0x42>
+                        54: R_X86_64_PC32       .bss-0x4
+  58:   8b 55 fc                mov    -0x4(%rbp),%edx
+  5b:   89 10                   mov    %edx,(%rax)
+  5d:   90                      nop
+  5e:   c9                      leaveq
+  5f:   c3                      retq
