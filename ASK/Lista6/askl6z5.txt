@@ -1,0 +1,25 @@
+Nie znalazłem ścisłej definicji dyrektyw assemblera, więc spróbuję opisać to jak
+najlepiej potrafię. Trzeba sobie uświadomić, że dyrektywy assemblera, są oderwane
+od języka assembler. Są to informacje, które przekazujemy naszemu assemblerowi
+(programowi zamieniającymi kod .asm na binarke). Można o nich myśleć jak o dyrektywach przeprocesora
+w C.
+
+1.
+.global foobar
+.type foobar,@function
+
+2.
+.section        .rodata
+      .align 16
+      .type   baz, @object
+      .size   baz, 24
+baz:
+      .ascii  "abc"
+      .zero   1
+      .long   42
+      .quad   -3
+      .long   1068827777
+      .zero   4
+
+3.
+.comm array,800,32

@@ -1,0 +1,8 @@
+Gdzie przeczytać: Podręcznik 7.6 i hasło name mangling na wiki
+W skrócie C++ aby uniknąć kolizji nazw "dekoruje" je. Nie powstał jakiś ujednolicony sposób
+dekorowania nazw. Każdy ma własny. Zdaje się, że jest to różnowartościowe.
+
+1. func(char const*, int&)
+2. Bar::baz(char*)
+3. Bar::Bar(Bar const&)
+4. foo::strlen(string&)

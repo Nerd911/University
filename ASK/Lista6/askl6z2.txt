@@ -1,0 +1,9 @@
+Gdzie poczytać: Rozdział 7.6.1. Podręcznika
+
+Kompilator eksportuje każdy symbol globalny jako silny albo słaby.
+Jeżeli zmienna jest niezainicjowana, to jest słabym symbolem. W tym wypadku char
+main jest symbolem słabym a int main() silnym.
+
+Program wypisze jakiś garbage z funkcji main. generalnie zasada jest taka, że mając silny symbol
+i słaby symbol zawsze wybierze silny symbol.
+Jakby zmienna była zainicjalizowana, to byłaby silnym symbolem i nie dałoby się zlinkować.
