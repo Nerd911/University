@@ -7,3 +7,5 @@ main jest symbolem słabym a int main() silnym.
 Program wypisze jakiś garbage z funkcji main. generalnie zasada jest taka, że mając silny symbol
 i słaby symbol zawsze wybierze silny symbol.
 Jakby zmienna była zainicjalizowana, to byłaby silnym symbolem i nie dałoby się zlinkować.
+
+Jeżeli w ciele funkcji spróbujemy napisać to zarzuci segfaultem.
