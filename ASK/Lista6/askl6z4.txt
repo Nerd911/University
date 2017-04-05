@@ -1,0 +1,8 @@
+1. objdump -a libc.a | grep 'file format' | wc -l
+   objdump -a libc.m | grep 'file format' | wc -l
+
+2. objdump -dx prog1 >> dump1
+   objdump -dx prog2 >> dump2
+   diff dump1 dump2
+
+3. readelf -d /usr/bin/python | grep 'Shared library'

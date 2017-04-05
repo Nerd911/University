@@ -1,0 +1,12 @@
+Relocation section '.rela.text' at offset 0x1f0 contains 1 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+00000000000d  00050000000b R_X86_64_32S      0000000000000000 .rodata + 0
+
+Relocation section '.rela.rodata' at offset 0x208 contains 6 entries:
+  Offset          Info           Type           Sym. Value    Sym. Name + Addend
+000000000000  000200000001 R_X86_64_64       0000000000000000 .text + 21
+000000000008  000200000001 R_X86_64_64       0000000000000000 .text + 11
+000000000010  000200000001 R_X86_64_64       0000000000000000 .text + 1d
+000000000018  000200000001 R_X86_64_64       0000000000000000 .text + 15
+000000000020  000200000001 R_X86_64_64       0000000000000000 .text + 15
+000000000028  000200000001 R_X86_64_64       0000000000000000 .text + 19
