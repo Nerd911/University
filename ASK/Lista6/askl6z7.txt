@@ -1,0 +1,17 @@
+Lazy binding pozwala na wywoływanie przez PIC zewnętrznych procedur. Leniwe wiązanie
+powstrzymuje wiązanie adresu procedury aż do pierwszego razu kiedy procedura jest wywoływana.
+Robi się to aby zmniejszyć liczbę instrukcji przy wywołaniu. Powoduje ono znaczący narzut
+na pierwsze wywołanie funkcji, ale kolejne wywołania kosztują pojedyńczą instrukcję.
+
+1. PIC pozwala na ładowanie i wykonywanie bibliotek bez modyfikowania ich przez linker.
+data jest alokowana zawsze za kodem, zatem odległość międzt każdym fragmentem jest stała.
+2.GOT - global offset table - zawiera pozycje dla każdego obiektu globalnego.W
+trakcie ładowania linker dynamiczny reokuje każdy wpis w GOT, żeby zawierał odpowiedni adres absolutny.
+W trakcie działania do każdej zmiennej globalnej odwołujemy się za pomocą got.
+Ma to swoje wady, zwiększa to liczbę instrukcji, żeby odwołać się do wartości zmiennej.
+dodatkowo potrzeba dodatkowego jestru aby odwołać się do wpisu GOT.
+PLT - procedure linkage table. Jeżeli obiekt woła zmienną zdefiniowany w bibliotekach współdzielonych
+to odwołuje się do GOT lub PLT. GOT przechowuje sekcje .data a PLT .text.
+
+4. .dynamic zawiera informacje dla dynamicznego linkera, jak związać adresy procedur, takie jak lokacja
+tablicy symboli i informacje o relokacji.
