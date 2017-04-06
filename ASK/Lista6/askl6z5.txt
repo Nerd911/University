@@ -18,7 +18,7 @@ baz:
       .zero   1
       .long   42
       .quad   -3
-      .long   1068827777
+      .float  1.4142
       .zero   4
 
 3.
