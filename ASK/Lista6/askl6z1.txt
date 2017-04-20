@@ -1,5 +1,5 @@
 nazwa | typ    | nazwa sekcji | rozmiar
-buf   | extern | *UND*        | 0x0
+buf   | *und*  | *UND*        | 0x0
 bufp0 | global | .data        | 0x08
 bufp1 | local  | .bss         | 0x08
 incr  | local  | .text        | 0x16
