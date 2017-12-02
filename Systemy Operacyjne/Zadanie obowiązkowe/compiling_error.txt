@@ -1,0 +1,13 @@
+/tmp/ccOn9gjx.o: In function `initSemaphores':
+ReaderWriter.c:(.text+0xf9): undefined reference to `sem_init'
+ReaderWriter.c:(.text+0x120): undefined reference to `sem_init'
+/tmp/ccOn9gjx.o: In function `philosopher':
+ReaderWriter.c:(.text+0x154): undefined reference to `sem_wait'
+ReaderWriter.c:(.text+0x174): undefined reference to `sem_wait'
+ReaderWriter.c:(.text+0x1b5): undefined reference to `sem_wait'
+ReaderWriter.c:(.text+0x1e3): undefined reference to `sem_post'
+ReaderWriter.c:(.text+0x224): undefined reference to `sem_post'
+ReaderWriter.c:(.text+0x234): undefined reference to `sem_post'
+/tmp/ccOn9gjx.o: In function `runAll':
+ReaderWriter.c:(.text+0x2f1): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
