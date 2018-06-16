@@ -1,0 +1,3 @@
+/home/nerd911/University/Sztuczna_Inteligencja/Lista4/Zadanie1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/nerd911/University/Sztuczna_Inteligencja/Lista4/Zadanie1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/nerd911/University/Sztuczna_Inteligencja/Lista4/Zadanie1/cmake-build-debug/CMakeFiles/Zadanie1.dir

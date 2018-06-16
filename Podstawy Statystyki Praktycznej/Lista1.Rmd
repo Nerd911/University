@@ -1,0 +1,124 @@
+---
+title: "Lista1"
+author: "Mikołaj Słupiński"
+date: "12 marca 2018"
+header-includes:
+   - \setlength\parindent{24pt}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Zadanie 1
+
+### a)
+
+
+```{r zad1a, echo = FALSE, results='hold'}
+tab=read.table("http://www.math.uni.wroc.pl/~mbogdan/Podstawy/Dane/table1_6.TXT")
+
+colnames(tab) = c("id", "średnia", "IQ", "płeć", "samoocena")
+par(mfrow = c(1,3))
+hist(tab[[2]], xlab = "średnia", main = "Histogram średniej")
+c(mean(tab[[2]]), median(tab[[2]]), var(tab[[2]]))
+hist(tab[[3]], xlab = "IQ", main = "Histogram IQ")
+c(mean(tab[[3]]), median(tab[[3]]), var(tab[[3]]))
+hist(tab[[5]], xlab = "samoocena", main = "Histogram samooceny")
+c(mean(tab[[5]]), median(tab[[5]]), var(tab[[5]]))
+
+```
+
+Otrzymaliśmy trzy wykresy o podobnym kształcie. Wszystkie są jednomodalne, ze skośnością na lewo. Najbardziej uwydacznia się to w histogramie średniej.
+
+### b)
+```{r zad1b}
+male = subset(tab, tab[4] == "M")
+female = subset(tab, tab[4] == "F")
+par(mfrow = c(1,3))
+boxplot(female[[2]], male[[2]], names = c("średnia\nkobiet", "średnia\nmężczyzn"))
+boxplot(female[[3]], male[[3]], names = c("IQ kobiet", "IQ mężczyzn"))
+boxplot(female[[5]], male[[5]], names = c("samoocena\nkobiet", "samoocena\nmężczyzn"))
+```
+
+Widzimy, że mediana średniej ocen jest zbliżona zarówno w przypadku kobiet jak i mężczyzn, jednakże wśród meżczyzn występuje zdecydowanie wieksza wariancja i zdecydowanie większa ilość słabszych ocen.
+
+Podobnie sprawa ma się z samooceną wśród uczniów. Kobiety mają podobną medianę, ale mniejszą wariancję. Natomiast wśród kobiet występuje więcej zjawisk odstających.
+
+Mediana IQ jest zdecydowanie niższa niż wśród mężczyzn, występuje również wiersza wariancja. Co ciekawe, najwyższy wynik testu IQ wśród kobiet jest niższy niż najwyższy u meżczyzn. W szczególności najniższe wyniki są zdecydowanie niższe niż u meżczyzn.
+
+### c)
+
+```{r zad1c}
+par(mfrow = c(1,2))
+plot(tab[[3]], tab[[2]], xlab = "IQ", ylab = "średnia")
+plot(tab[[5]], tab[[2]], xlab = "samoocena", ylab = "średnia")
+```
+
+Na wykresach można zauważyć, że osoby z większym IQ mają tendecję do wyższej średniej ocen. Tak samo można zauważyć pewien związek wysokiej samooceny z wyższą średnią.
+
+## Zadanie 2
+
+### a)
+
+```{r zad2a}
+tab = read.table("http://www.math.uni.wroc.pl/~mbogdan/Podstawy/Dane/individuals.dat")
+tab[[3]] = as.factor(tab[[3]])
+levels(tab[[3]]) = c("podstawowe", "zawodowe", "średnie", "szkoła\npomaturalna", "licencjat", "wyższe")
+tab[[6]] = as.factor(tab[[6]])
+levels(tab[[6]]) = c("sektor prywatny", "sektor rządowy", "samo-zatrudnienie")
+males = subset(tab, tab[4] == 1)
+females = subset(tab, tab[4] == 2)
+par(mfrow = c(1,1))
+pie(table(males[[3]]), labels = paste(levels(males[[3]]), ", (", round(table(males[[3]])/dim(males[3])[1]*100), "%)", sep = ""), main = "Wykształcenie u mężczyzn")
+pie(table(females[[3]]), labels = paste(levels(females[[3]]), ", (", round(table(females[[3]])/dim(females[3])[1]*100), "%)", sep = ""), main = "Wykształcenie u kobiet")
+pie(table(males[[6]]), labels = paste(levels(males[[6]]), ", (", round(table(males[[6]])/dim(males[6])[1]*100), "%)", sep = ""), main = "Zatrudnienie u mężczyzn")
+pie(table(females[[6]]), labels = paste(levels(females[[6]]), ", (", round(table(females[[6]])/dim(females[6])[1]*100), "%)", sep = ""), main = "Zatrudnienie u kobiet")
+```
+Rozkłady wykształcenia u kobiet i mężczyzn są zbliżone. Jednak wśród mężczyzn jest więcej osób z wykształceniem wyższym, natomiast wsród kobiet z wykształceniem pomaturalnym.
+Można zauważyć, że większość stanowisk rządowych zajmują mężczyźni.
+
+### b)
+
+```{r zad2b}
+par(mfrow = c(1,1))
+barplot(by(males[[5]], paste(males[[3]], ",\n", males[[6]], sep = ""), mean), las =2, cex.names = 0.5, main = "Zarobki wśród mężczyzn")
+barplot(by(females[[5]], paste(females[[3]], ",\n", females[[6]], sep = ""), mean), las =2, cex.names = 0.5, main = "Zarobki wśród kobiet")
+```
+Można zauważyć, że najwyższe zarobki są ponad pięciokrotnie wyższe od najniższych.
+Ponadto mężczyźni zarabiają nawet dwukrotnie więcej niż koiety.
+Najmniej zarabiają osoby samo-zatrudnione z wykształceniem podstawowym oraz osoby z wykształceniem podstawowym w sektorze rządowym. Wśród meżczyzn najwięcej zarabiają osoby samo-zatrudnione z wykształceniem wyższym, natomiast wśród kobiet osoby z wykształceniem wyższym w sektorze prywatnym.
+
+### c)
+
+```{r zad2c}
+hist(tab[[5]])
+c(mean(tab[[5]]), median(tab[[5]]), mean(tab[[5]])/median(tab[[5]]), xlab = "Dochody", main = "Histogram dochodów")
+```
+
+Wykres jest skośny w prawo. Oznacza to, że średnia dochodów jest zdecydowanie wyższa od mediany, co pokazuje nam równiez ich iloraz.
+Oznacza to, że jest niewiele osób bardzo bogatych, ale ich dochody są na tyle wysokie, żeby mieć znaczący wpływ na średnią.
+
+### d)
+
+```{r zad2d}
+ld = log(tab[5][tab[5] > 0])
+hist(ld)
+c(mean(ld), median(ld), mean(ld)/median(ld))
+```
+
+Uzyskaliśmy wykres jednomodalny ze skośnością w lewo. Średnia zbliżyła nam się do mediany. Można to wytłumaczyć tym, że logarytm jest funkcją wolnorosnącą.
+
+### e)
+
+```{r zad2e}
+par(mfrow = c(1,2))
+plot(males[[2]], males[[5]], xlab = "Wiek", ylab = "Dochód", main = "Mężczyźni")
+plot(females[[2]], females[[5]], xlab = "Wiek", ylab = "Dochód", main = "Kobiety")
+```
+
+Jest zdecydowanie wieksze zagęszczenie górnych zaraboków dla mężczyzn.
+Widać również, że wśród górnych zarbków może istnieć zalezność między wysokością zarobku, a wiekiem mężczyzny, gdyż najwyższe zarobki osiągają jedynue mężczyźni po 40 roku życia.
+Również wśród niższych dochodów widać tendecję do zarabiania więcej przez panów po 40 roku życia.
+Widzimy, że wśród kobiet jest o wiele niższa tendencja niż u mężczyzn do zarabiania w okolicach mediany.

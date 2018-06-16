@@ -1,0 +1,138 @@
+\documentclass[a4paper]{article}
+
+%% Language and font encodings
+\usepackage[polish]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{polski}
+\usepackage[T1]{fontenc}
+\frenchspacing
+\usepackage{indentfirst}
+\usepackage{listings}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily,
+  showstringspaces=false,
+  commentstyle=\color{red},
+  keywordstyle=\color{blue}
+}
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Dlaczego warto używać zsh}
+\author{Mikołaj Słupiński}
+
+\begin{document}
+\maketitle
+
+\section{Wstęp}
+
+Systemy z rodziny UNIX pozwalają użytkowniowi na swobodę konfiguracji. Umożliwia nam to między innymi zmianę  powłoki systemu. Bez wątpienia, najpopularniejszą obecnie powłoką jest instalowany domyślnie na większości dystrybucji linuksa bash (ang. \emph{Bourne-Again Shell}), jednakże świadomy użytownik systemu operacyjnego powinien przynajmniej spróbować innych, konkurencyjnych rozwiązań. Z tego powodu postaram się przybliżyć cechy zsh (\emph{Z Shell}), które wyróżniają ją na tle innych produktów.
+
+\section{Ciekawe funkcje zsh}
+
+\subsection{Automatyczne uzupełnianie}
+Funkcjonalność basha w tej sferze jest mocno ograniczona. Owszem, pozwala on na uzupełnianie klawiszem tabulacji nazw ścieżek, czy plików, jednakże zsh oferuje bardziej zaawansowane rozwiązania. Klawisz tabulacji pozwala nam na uzupełnianie opcji menedżera pakietów czy programu git. Ponadto, po wpisaniu fragmentu polecenia, wciśnięcie strzałki w górę spowoduje odnalezienie ostatnio użytego polecenia rozpoczynającego się daną sekwencją znaków.
+
+\subsection{Autokorekta}
+Wpisanie w powłoce \texttt{setopt correct} spowoduje włączenie opcji autokorekty. W momencie kiedy wpisując polecenie popełnimy literówkę, np.
+\begin{lstlisting}[language=bash]
+nerd911@nerd911-laptop  ~  exti
+\end{lstlisting}
+Wyświetli nam się komunikat zbliżony do zamieszczonego poniżej:
+\begin{lstlisting}[language=bash]
+zsh: correct 'exti' to 'exit' [nyae]?
+\end{lstlisting}
+co pozwala nam szybko poprawić literówkę.
+\subsection{Rozwijanie ścieżek}
+Jedną z bardziej przydatnych opcji jest rozwijanie ścieżek przez zsh.
+Wpisanie \texttt{cd /u/lo/b}, a następnie wciśnięcie przycisku \emph{tab} spowoduje rozwinięcie polecenia do \texttt{cd /usr/local/bin}, co zaoszczędza nam pisania.
+
+\subsection{Globowanie}
+Glob to krótkie wyrażenie, które pozwala nam na wybranie dużej ilości plików, za pomocą jednego zapytania, które można uzupełnić o wyrażenia regularne.
+Proste przykłady:
+\begin{lstlisting}[language=bash]
+# Wypisz kazdy plik znajdujacy sie dokladnie w katalog moj_katalog
+ls moj_katalog
+
+# Wypisz kazdy plik znajdujacy sie dokladnie jeden poziom
+# pod katalogiem moj_katalog
+ls moj_katalog/*
+
+# Wypisz kazdy plik znajdujacy sie dokladnie dwa poziomy
+# pod katalogiem moj_katalog
+ls moj_katalog/*/*
+
+# Wypisz kazdy plik znajdujacy sie w katalogu moj_katalog
+# i jego podkatalogach
+ls moj_katalog/**/*
+
+# Wypisz kazdy plik o rozszerzeniu txt znajdujacy sie w
+# katalogu moj_katalog i jego podkatalogach
+ls moj_katalog/**/*.txt
+\end{lstlisting}
+
+Możemy również wykorzystać to np. do iterowania po podkatalogach:
+
+\begin{lstlisting}[language=bash]
+for katalog in moj_katalog/dane/*/*; do
+    # utworz plik w kazdym podkatalogu
+done
+\end{lstlisting}
+\subsection{Kwalifikatory}
+Kwalifikatory pozwalają nam na filtrowania wyszukiwanych przez nas plików. Są to proste wyrażenia, które umieszczamy na końcu zapytań w okrągłych nawiasach. Kilka prostych przykładów:
+\begin{lstlisting}[language=bash]
+# Wypisz tylko foldery
+print -l moj_katalog/**/*(/)
+
+# Wypisz tylko zwykle pliki
+print -l moj_katalog/**/*(.)
+
+# Pokaz tylko puste pliki
+ls -l moj_katalog/**/*(L0)
+
+# Pokaz tylko pliki wieksze niz 3 KB
+ls -l moj_katalog/**/*(Lk+3)
+
+# Pokaz pliki zmodyfikowane w ciagu ostatniej godziny
+print -l moj_katalog/**/*(mh-1)
+
+# Posortuj pliki od w kolejnosci czasu od ostatniej modyfikacji
+# i wypisz 3 pierwsze rekordy
+ls -l moj_katalog/**/*(om[1,3])
+\end{lstlisting}
+\subsection{Modyfikatory}
+Modyfikatory są podobne w użyciu do kwalifikatorów. Pozwalają nam one na bardziej zaawansowane operacje na ścieżkach do plików. Aby odróżnić je od kwalifikatorów są one poprzedzone znakiem dwukropka.
+
+\begin{lstlisting}[language=bash]
+# Zwykly glob
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt
+
+# Wypisz nazwe pliku (t pochodzi od tail)
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt(:t)
+
+# Wypisz nazwe pliku bez rozszerzenia (r pochodzi od remove_extension)
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt(:t:r)
+
+# Wypisz rozszerzenie
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt(:e)
+
+# Wypisz katalog nadrzedny pliku (h od head)
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt(:h)
+
+# Wypisz katalog nadrzedny katalogu nadrzednego
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt(:h:h)
+
+# Mozna laczyc kwalifikatory z modyfikatorami
+# Wypisz karalog nadrzedny pierwszego pliku
+print -l moj_katalog/dane/podkatalog1/podkatalog2/*.txt([1]:h)
+\end{lstlisting}
+
+\section{Podsumowanie}
+
+Oczywiście nie są to wszystkie funkcjonalności zsh, jednakże opisanie wszystkich zastosowań powłoki zajęłoby zdecydowanie więcej, niż krótki artykuł. Czasem warto otworzyć się na zmiany i spróbować innych rozwiązań niż te dostarczone razem z systemem. Oczywiście wymaga to zmierzenia się z dokumentacją, jednak jak pokazuję powyższe przykłady, niejednokrotnie warto.
+\end{document}

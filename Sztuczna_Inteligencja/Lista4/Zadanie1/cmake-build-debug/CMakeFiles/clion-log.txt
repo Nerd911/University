@@ -1,0 +1,4 @@
+/home/nerd911/bin/clion-2018.1.2/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/nerd911/University/Sztuczna_Inteligencja/Lista4/Zadanie1
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/nerd911/University/Sztuczna_Inteligencja/Lista4/Zadanie1/cmake-build-debug

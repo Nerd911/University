@@ -1,0 +1,106 @@
+---
+title: "Lista 3"
+author: "Mikołaj Słupiński"
+date: "9 kwietnia 2018"
+header-includes:
+   - \setlength\parindent{24pt}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Zadanie 1
+
+### a)
+
+\begin{equation*}
+\begin{split}
+E(X) &= \int_{0}^{\infty}x \lambda e^{- \lambda x} dx = \lambda \int_{0}^{\infty} x e^{- \lambda x} dx = \lambda \int_{0}^{\infty} x \big(\frac{- e^{- \lambda x}}{\lambda}\big)' dx = \lambda \Bigg(\bigg[x\frac{- e^{- \lambda x}}{\lambda}\bigg]_{0}^{\infty} - \int_{0}^{\infty}\frac{- e^{- \lambda x}}{\lambda} dx\Bigg) \\ &= \lambda (0 + \frac{1}{\lambda}\int_{0}^{\infty}e^{- \lambda x} dx) = \int_{0}^{\infty}e^{- \lambda x} dx = \bigg[-\frac{- e^{- \lambda x}}{\lambda}\bigg]_{0}^{\infty} = \frac{1}{\lambda}
+\end{split}
+\end{equation*}
+
+Przy liczeniu wariancji pominięto przejścia analogiczne do liczenia wartości oczekiwanej.
+
+\begin{equation*}
+\begin{split}
+E(X^2) &= \int_{0}^{\infty}x^2 \lambda e^{- \lambda x} dx = \lambda \int_{0}^{\infty} x^2 e^{- \lambda x} dx = \lambda \Bigg(\bigg[x^2\frac{- e^{- \lambda x}}{\lambda}\bigg]_{0}^{\infty} - \int_{0}^{\infty}2x\frac{- e^{- \lambda x}}{\lambda} dx\Bigg) = 2 \int_{0}^{\infty}x e^{- \lambda x} dx = \frac{2}{\lambda ^2}
+\end{split}
+\end{equation*}
+
+\begin{equation*}
+\begin{split}
+Var(X) = E(X^2) - (E(X))^2 = \frac{2}{\lambda ^2} - \frac{1}{\lambda ^2} = \frac{1}{\lambda ^2}
+\end{split}
+\end{equation*}
+
+### b)
+
+```{r zad1a, results='hold', fig.show='hold', fig.align='center'}
+set.seed(457)
+plot(function(x) pexp(x,1), 0, 15, ylab="F(x)",
+     main = "Wykres dystrybuanty rozkładu wykładniczego")
+x = seq(0, 15, 0.01)
+lines(x, pexp(x, 0.25), col = "red")
+lines(x, pexp(x, 0.5), col = "blue")
+lines(x, pexp(x, 2), col = "pink")
+lines(x, pexp(x, 10), col = "yellow")
+legend(11,y=0.6, legend = c(expression(paste(lambda, " = 1")),
+                            expression(paste(lambda, " = 0.25")),
+                            expression(paste(lambda, " = 0.5")),
+                            expression(paste(lambda, " = 2")),
+                            expression(paste(lambda, " = 10"))),
+       col = c("black","red", "blue", "pink", "yellow"), lty = 1)
+```
+
+### c)
+
+Chcemy policzyć prawdopodobieństwo, że zmienna losowa $X$ osiągnie wartość w przedziale $[E(X) - 2\sqrt{Var(X)}, E(X) + 2\sqrt{Var(X)}]$.
+\begin{equation*}
+\begin{split}
+P(-0.5 \leq X \leq 1.5) = F(1.5) - F(-0.5) = 1 - e^{-2 \cdot 1.5} - 0 = 1 - e^{-3} \approx 0.95
+\end{split}
+\end{equation*}
+
+### d)
+
+Policzymy procent próbek znajdujących się w przedziale $[E(X) - 2\sqrt{Var(X)}, E(X) + 2\sqrt{Var(X)}]$.
+
+```{r zad1d, results='hold', fig.show='hold', fig.height = 4, fig.align='center'}
+v = rexp(1000, rate = 2)
+m = 0.5
+round(mean(v >= -m & v <= 3*m) * 100)
+```
+
+Wartość eksperymentalna pokrywa się z wartością teoretyczną.
+
+## Zadanie 2
+
+### a)
+
+```{r zad2a, results='hold', fig.show='hold', fig.align='center'}
+k = 0:300
+prob = dbinom(k, 300, 0.7)
+barplot(prob,0.4)
+```
+
+$E(X) = n \cdot p = 210, Var(X) = n \cdot p \cdot (1-p) = 63$
+
+### b)
+
+Ponownie porównamy procent próbek uzyskanych w przedziale $[E(X) - 2\sqrt{Var(X)}, E(X) + 2\sqrt{Var(X)}]$ z teoretycznym prawdopodobieństwem uzyskania takiej próbki
+
+```{r zad2b, results='hold'}
+v = rbinom(1000, 300, 0.7)
+m = 300 * 0.7
+s2 = m * (1 - 0.7)
+s = sqrt(s2)
+left = ceiling(m - 2*s)
+right = floor(m + 2*s)
+print(paste("Procent próbek w zadanym przedziale: ", round(mean(v >= left & v <= right) * 100)))
+print(paste("Prawdopodobieństwo uzyskania wartości X w zadanym przedziale: ",
+              sum(dbinom(left:right, 300, 0.7))))
+```
+
+Ponownie uzyskujemy frakcję zbliżoną do teoretycznego prawdopodobieństwa oraz ponownie wynosi ono około 0.95.

@@ -1,0 +1,43 @@
+---
+title: "Lista 4"
+author: "Mikołaj Słupiński"
+date: "14 kwietnia 2018"
+header-includes:
+   - \setlength\parindent{24pt}
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Zadanie 1
+
+```{r zad1, results='hold', fig.show='hold', fig.align='center'}
+tab=read.table("http://www.math.uni.wroc.pl/~mbogdan/Podstawy/Dane/table1_6.TXT")
+qqnorm(tab$V2, main="Wykres kwantylowo-kwantylowy średniej ocen")
+qqline(tab$V2,col=2,lty=2)
+qqnorm(tab$V3, main="Wykres kwantylowo-kwantylowy IQ")
+qqline(tab$V3,col=2,lty=2)
+qqnorm(tab$V5, main="Wykres kwantylowo-kwantylowy wyniku testu samooceny")
+qqline(tab$V5,col=2,lty=2)
+```
+
+Na wykresie kwantylowo-kwantylowym średniej ocen możemy zaapbserwować skośność na lewo, gdyż występuje delikatny "brzuszek" nad prostą.
+
+Wykres IQ najbardziej przypomina wykres rozkładu normalnego. Widzimy również, że mamy "lekki ogon" z lewej strony.
+
+Na wykresie samooceny również możemy zaobserwować skośność na lewo. Dodatkowo kształt sugeruje lekki lewy ogon i ciężki prawy.
+
+## Zadanie 2
+
+```{r zad2, results='hold', fig.show='hold', fig.align='center'}
+tab=read.table("http://www.math.uni.wroc.pl/~mbogdan/Podstawy/Dane/individuals.dat")
+qqnorm(tab$V5, main="Wykres kwantylowo-kwantylowy dochodów")
+qqline(tab$V5,col=2,lty=2)
+qqnorm(log(tab$V5[tab$V5 > 0]), main="Wykres kwantylowo-kwantylowy logarytmu z dochodów")
+```
+
+Wykres kwantylowo-kwantylowy dochodów nie sugeruje nawet rozkładu normalnego. Wyraźnie widać skośnoś na prawo. Widać "lukę" w wartościach w okolicach 20000.
+
+Na wykresie logarytmu z dochodów widzimy "brzuszek" odpowiedzialny za skośność na lewo.
